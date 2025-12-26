@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include<time.h>
 #include <ctype.h>
 #include<windows.h>
 typedef struct _card {
@@ -133,7 +133,7 @@ int main(void) {
         if (total_money == 0)
             break;
     }
-    if(total_money == 0)
+    if(total_money == 0 && again==1)
 		printf("you have no money to play\n");
     else
 		printf("You have %d . welcome to come again next time!\n",total_money);
