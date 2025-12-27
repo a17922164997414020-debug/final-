@@ -43,6 +43,7 @@ int main(void) {
     scanf(" %d", &total_money);
 	printf("would you like to participate?black jack(1) roulette(0) ");
 	scanf(" %d", &item);
+    //bbbbbbbbbbbbbbbb
     bb:
     while (total_money >= 0 && again == 1 && item == 0)
     {      
