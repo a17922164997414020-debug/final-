@@ -416,12 +416,90 @@ int roulate(int roulette[38])
 }
 
 void picture(void) {
-#define WIN_W 800
-#define WIN_H 600
-	/*if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-	        SDL_Log("初始化失敗: %s", SDL_GetError());
-	        return 1;
-	    }*/
+	#define WIN_W 800
+	#define WIN_H 600
+	SDL_Window* window = SDL_CreateWindow(
+		"Result",
+		WIN_W,
+		WIN_H,
+		0
+	);
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
+
+	SDL_Surface* surface = NULL;
+	if (gamestate == win)
+		surface = SDL_LoadBMP("picture_happy.bmp");
+	else
+		surface = SDL_LoadBMP("picture_sad.bmp");
+
+	if (!surface) {
+		SDL_Log("圖片讀取失敗: %s", SDL_GetError());
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		return;
+	}
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_DestroySurface(surface);
+	
+	float imgW, imgH;
+	SDL_GetTextureSize(texture, &imgW, &imgH);
+
+	SDL_FRect destRect;
+	destRect.w = 400.0f;
+	destRect.h = destRect.w * (imgH / imgW);
+	destRect.x = (WIN_W - destRect.w) / 2.0f;
+	destRect.y = (WIN_H - destRect.h) / 2.0f;
+
+	Uint64 startTime = SDL_GetTicks();
+	int running = 1;
+	SDL_Event event;
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	while (running) {
+		Uint64 elapsed = SDL_GetTicks() - startTime;
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_EVENT_QUIT)
+					running = 0;
+			if (event.type == SDL_EVENT_KEY_DOWN &&
+					(event.key.key == SDLK_RETURN ||
+						event.key.key == SDLK_ESCAPE)) {
+					running = 0;
+				}
+			}
+
+			if (elapsed >= 2000)
+				running = 0;
+
+			SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+			SDL_RenderClear(renderer);
+
+			SDL_RenderTexture(renderer, texture, NULL, &destRect);
+
+			Uint8 fadeAlpha = 0;
+			if (elapsed > 1500) {
+				float fadeRatio = (float)(elapsed - 1500) / 500.0f;
+				if (fadeRatio > 1.0f) fadeRatio = 1.0f;
+				fadeAlpha = (Uint8)(fadeRatio * 255);
+			}
+
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, fadeAlpha);
+			SDL_FRect fadeRect = { 0, 0, WIN_W, WIN_H };
+			SDL_RenderFillRect(renderer, &fadeRect);
+
+			SDL_RenderPresent(renderer);
+		}
+
+		SDL_DestroyTexture(texture);
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+	gamestate = finish;
+}
+
+/*void picture(void) {		圖片不會自動關掉版本
+	#define WIN_W 800
+	#define WIN_H 600
+	
 
 	SDL_Window* window = SDL_CreateWindow("SDL3 Image Center Example", WIN_W, WIN_H, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
@@ -463,9 +541,9 @@ void picture(void) {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-	//SDL_Quit();
 	gamestate = finish;
-}
+}*/
+
 void music(void) {
 	if (!is_engine_init) return;
 
