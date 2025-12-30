@@ -21,7 +21,7 @@ enum game { finish, win, lose };
 enum game gamestate;
 void music(void);
 void music_stop(void);
-enum music { shuffle, casino, dealing_card, roulette1, none, win1, lose1}; //洗牌 賭場 發牌 輪盤
+enum music { shuffle, casino, dealing_card, roulette1, none, win1, lose1 }; //洗牌 賭場 發牌 輪盤
 enum music scenemusic;
 void fillDeck(card* wDeck, const char* wFace[], const char* wSuit[]);
 void picture(void);
@@ -31,8 +31,8 @@ void printHand(card hand[], int cardCount, const char* name);
 void total(int totall);
 void endprent(int moneyy, int again);
 int roulate(int num[38]);
-ma_sound currentSound; 
-int is_sound_init = 0; 
+ma_sound currentSound;
+int is_sound_init = 0;
 
 int main(int argc, char* argv[]) {
 	srand(time(NULL));
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
 	scanf(" %d", &total_money);
 	printf("would you like to participate?black jack(1) roulette(0) ");
 	scanf(" %d", &item);
-	
+
 	if (item == 1) {
 		music_stop();
 		scenemusic = shuffle;
@@ -110,7 +110,7 @@ bb:
 				music_stop();
 				gamestate = win;
 				picture();
-				
+
 			}
 			else
 			{
@@ -124,7 +124,7 @@ bb:
 				music_stop();
 				gamestate = lose;
 				picture();
-				
+
 			}
 
 		}
@@ -142,7 +142,7 @@ bb:
 				music_stop();
 				gamestate = win;
 				picture();
-				
+
 			}
 			else if (roulette[num] % 2 == 1 && roulette[num] != 0 && asw == 1)
 			{
@@ -155,7 +155,7 @@ bb:
 				music_stop();
 				gamestate = win;
 				picture();
-				
+
 			}
 			else
 			{
@@ -168,7 +168,7 @@ bb:
 				music_stop();
 				gamestate = lose;
 				picture();
-				
+
 			}
 		}
 		printf("\nDo you want to play again? yes(1) no(0) ");
@@ -194,7 +194,7 @@ bb:
 
 
 		printf("\n---black jack start ---");
-		
+
 		do
 		{
 			printf("\nhow much do you want to bet? ");
@@ -230,7 +230,7 @@ bb:
 				goto aa;
 			}
 			music_stop();
-			
+
 			printf("need(1) or stop(0) ");
 			scanf(" %d", &choice);
 
@@ -270,7 +270,7 @@ bb:
 			Sleep(2000);
 			music_stop();
 			picture();
-			
+
 		}
 		else if (playerScore > dealerScore) {
 			printf("player win :) you win %d\n", money);
@@ -283,7 +283,7 @@ bb:
 			Sleep(2000);
 			music_stop();
 			picture();
-			
+
 		}
 		else if (playerScore < dealerScore) {
 			printf("dealer win :( you lose %d\n", money);
@@ -296,7 +296,7 @@ bb:
 			Sleep(2000);
 			music_stop();
 			picture();
-			
+
 		}
 		else {
 			music_stop();
@@ -418,10 +418,88 @@ int roulate(int roulette[38])
 void picture(void) {
 #define WIN_W 800
 #define WIN_H 600
-	/*if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-	        SDL_Log("初始化失敗: %s", SDL_GetError());
-	        return 1;
-	    }*/
+	SDL_Window* window = SDL_CreateWindow(
+		"Result",
+		WIN_W,
+		WIN_H,
+		0
+	);
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
+
+	SDL_Surface* surface = NULL;
+	if (gamestate == win)
+		surface = SDL_LoadBMP("picture_happy.bmp");
+	else
+		surface = SDL_LoadBMP("picture_sad.bmp");
+
+	if (!surface) {
+		SDL_Log("圖片讀取失敗: %s", SDL_GetError());
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		return;
+	}
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_DestroySurface(surface);
+
+	float imgW, imgH;
+	SDL_GetTextureSize(texture, &imgW, &imgH);
+
+	SDL_FRect destRect;
+	destRect.w = 400.0f;
+	destRect.h = destRect.w * (imgH / imgW);
+	destRect.x = (WIN_W - destRect.w) / 2.0f;
+	destRect.y = (WIN_H - destRect.h) / 2.0f;
+
+	Uint64 startTime = SDL_GetTicks();
+	int running = 1;
+	SDL_Event event;
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	while (running) {
+		Uint64 elapsed = SDL_GetTicks() - startTime;
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_EVENT_QUIT)
+				running = 0;
+			if (event.type == SDL_EVENT_KEY_DOWN &&
+				(event.key.key == SDLK_RETURN ||
+					event.key.key == SDLK_ESCAPE)) {
+				running = 0;
+			}
+		}
+
+		if (elapsed >= 2000)
+			running = 0;
+
+		SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+		SDL_RenderClear(renderer);
+
+		SDL_RenderTexture(renderer, texture, NULL, &destRect);
+
+		Uint8 fadeAlpha = 0;
+		if (elapsed > 1500) {
+			float fadeRatio = (float)(elapsed - 1500) / 500.0f;
+			if (fadeRatio > 1.0f) fadeRatio = 1.0f;
+			fadeAlpha = (Uint8)(fadeRatio * 255);
+		}
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, fadeAlpha);
+		SDL_FRect fadeRect = { 0, 0, WIN_W, WIN_H };
+		SDL_RenderFillRect(renderer, &fadeRect);
+
+		SDL_RenderPresent(renderer);
+	}
+
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	gamestate = finish;
+}
+
+/*void picture(void) {		圖片不會自動關掉版本
+	#define WIN_W 800
+	#define WIN_H 600
+
 
 	SDL_Window* window = SDL_CreateWindow("SDL3 Image Center Example", WIN_W, WIN_H, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
@@ -463,9 +541,9 @@ void picture(void) {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-	//SDL_Quit();
 	gamestate = finish;
-}
+}*/
+
 void music(void) {
 	if (!is_engine_init) return;
 
@@ -481,7 +559,7 @@ void music(void) {
 	if (scenemusic == casino) filePath = "casino.mp3";
 	else if (scenemusic == shuffle) filePath = "shuffle.mp3";
 	else if (scenemusic == dealing_card) filePath = "dealing_card.mp3";
-	else if (scenemusic == roulette1) filePath = "roulette.mp3";
+	else if (scenemusic == roulette1) filePath = "roulette1.mp3";
 	else if (scenemusic == win1) filePath = "money.mp3";
 	else if (scenemusic == lose1) filePath = "sad.mp3";
 
@@ -497,5 +575,5 @@ void music(void) {
 
 void music_stop(void) {
 	scenemusic = none;
-	music(); 
+	music();
 }
