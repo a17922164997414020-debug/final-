@@ -2,5 +2,5 @@
 C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(524,5): warning MSB8004: Output 目錄結尾不是結尾斜線。這個建置執行個體將會加入此斜線，因為這樣才能正確評估 Output 目錄。
   Main.c
 C:\Users\user\Desktop\final-\finalProject\finalProject\Main.c(38,8): warning C4244: '函式': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
-C:\Users\user\Desktop\final-\finalProject\finalProject\Main.c(427,3): warning C4098: 'picture': 'void' 函式正在傳回值
+C:\Users\user\Desktop\final-\finalProject\finalProject\Main.c(435,3): warning C4098: 'picture': 'void' 函式正在傳回值
   finalProject.vcxproj -> C:\Users\user\Desktop\final-\temp\debug\finalProject.exe

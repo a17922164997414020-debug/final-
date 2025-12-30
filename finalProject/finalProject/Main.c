@@ -104,12 +104,13 @@ bb:
 				printf("you win 35 times :) you win %d\n", money * 35);
 				total_money += money * 35;
 				total(total_money);
-				gamestate = win;
-				picture();
 				scenemusic = win1;
 				music();
 				Sleep(2000);
 				music_stop();
+				gamestate = win;
+				picture();
+				
 			}
 			else
 			{
@@ -117,12 +118,13 @@ bb:
 				printf("you lose %d\n", money);
 				total_money -= money;
 				total(total_money);
-				gamestate = lose;
-				picture();
 				scenemusic = lose1;
 				music();
 				Sleep(2000);
 				music_stop();
+				gamestate = lose;
+				picture();
+				
 			}
 
 		}
@@ -134,36 +136,39 @@ bb:
 				printf("\neven number,you win 2 times :) you win %d\n", money);
 				total_money += money;
 				total(total_money);
-				gamestate = win;
-				picture();
 				scenemusic = win1;
 				music();
 				Sleep(2000);
 				music_stop();
+				gamestate = win;
+				picture();
+				
 			}
 			else if (roulette[num] % 2 == 1 && roulette[num] != 0 && asw == 1)
 			{
 				printf("\nodd number,you win 2 times :) you win %d\n", money);
 				total_money += money;
 				total(total_money);
-				gamestate = win;
-				picture();
 				scenemusic = win1;
 				music();
 				Sleep(2000);
 				music_stop();
+				gamestate = win;
+				picture();
+				
 			}
 			else
 			{
 				printf("\nyou lose %d\n", money);
 				total_money -= money;
 				total(total_money);
-				gamestate = lose;
-				picture();
 				scenemusic = lose1;
 				music();
 				Sleep(2000);
 				music_stop();
+				gamestate = lose;
+				picture();
+				
 			}
 		}
 		printf("\nDo you want to play again? yes(1) no(0) ");
@@ -217,11 +222,11 @@ bb:
 				total(total_money);
 				gamestate = lose;
 				music_stop();
-				picture();
 				scenemusic = lose1;
 				music();
 				Sleep(2000);
 				music_stop();
+				picture();
 				goto aa;
 			}
 			music_stop();
@@ -260,11 +265,12 @@ bb:
 			total(total_money);
 			gamestate = win;
 			music_stop();
-			picture();
 			scenemusic = win1;
 			music();
 			Sleep(2000);
 			music_stop();
+			picture();
+			
 		}
 		else if (playerScore > dealerScore) {
 			printf("player win :) you win %d\n", money);
@@ -272,11 +278,12 @@ bb:
 			total(total_money);
 			gamestate = win;
 			music_stop();
-			picture();
 			scenemusic = win1;
 			music();
 			Sleep(2000);
 			music_stop();
+			picture();
+			
 		}
 		else if (playerScore < dealerScore) {
 			printf("dealer win :( you lose %d\n", money);
@@ -284,11 +291,12 @@ bb:
 			total(total_money);
 			gamestate = lose;
 			music_stop();
-			picture();
 			scenemusic = lose1;
 			music();
 			Sleep(2000);
 			music_stop();
+			picture();
+			
 		}
 		else {
 			music_stop();
