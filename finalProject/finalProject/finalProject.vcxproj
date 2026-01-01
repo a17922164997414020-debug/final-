@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\..\temp\debug</OutDir>
-    <IntDir>..\..\temp\debug</IntDir>
+    <OutDir>..\..\temp\debug\</OutDir>
+    <IntDir>..\..\temp\debug\</IntDir>
     <LibraryPath>C:\Users\user\Desktop\final-\SDL3-3.2.28\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

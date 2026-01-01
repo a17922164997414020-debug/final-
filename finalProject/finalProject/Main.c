@@ -9,6 +9,18 @@
 #pragma warning(disable : 4996)
 #include <SDL3/SDL.h>
 #include "miniaudio.h"
+#include <string.h>
+#include <conio.h>
+
+const char* SYMBOLS[] = { "CHERRY", "BELL", "7", "STAR", "LEMON", "BAR", "EMPTY", "BOMB"};
+const int SYMBOL_COUNT = sizeof(SYMBOLS) / sizeof(SYMBOLS[0]);
+
+int rand_index(int max);
+void spin_Reels(int reel[3]);
+int calculate_payout(const int reel[], int bet);
+void print_reels(const int reels[]);
+void flush_input();
+void show_help(int* _temp);
 
 typedef struct _card {
 	const char* face;
@@ -21,7 +33,7 @@ enum game { finish, win, lose };
 enum game gamestate;
 void music(void);
 void music_stop(void);
-enum music { shuffle, casino, dealing_card, roulette1, none, win1, lose1}; //洗牌 賭場 發牌 輪盤
+enum music { shuffle, casino, dealing_card, roulette1, slot_machine, none, win1, lose1 }; //洗牌 賭場 發牌 輪盤
 enum music scenemusic;
 void fillDeck(card* wDeck, const char* wFace[], const char* wSuit[]);
 void picture(void);
@@ -31,10 +43,15 @@ void printHand(card hand[], int cardCount, const char* name);
 void total(int totall);
 void endprent(int moneyy, int again);
 int roulate(int num[38]);
-ma_sound currentSound; 
-int is_sound_init = 0; 
+ma_sound currentSound;
+int is_sound_init = 0;
 
 int main(int argc, char* argv[]) {
+
+#ifdef _WIN32
+	system("chcp 65001 > nul");
+#endif
+
 	srand(time(NULL));
 	gamestate = finish;
 	card deck[52];
@@ -62,9 +79,9 @@ int main(int argc, char* argv[]) {
 	music();
 	printf("how much money do you have? ");
 	scanf(" %d", &total_money);
-	printf("would you like to participate?black jack(1) roulette(0) ");
+	printf("would you like to participate? Slot machine(2) blackjack(1) roulette(0) ");
 	scanf(" %d", &item);
-	
+
 	if (item == 1) {
 		music_stop();
 		scenemusic = shuffle;
@@ -110,7 +127,7 @@ bb:
 				music_stop();
 				gamestate = win;
 				picture();
-				
+
 			}
 			else
 			{
@@ -124,7 +141,7 @@ bb:
 				music_stop();
 				gamestate = lose;
 				picture();
-				
+
 			}
 
 		}
@@ -142,7 +159,7 @@ bb:
 				music_stop();
 				gamestate = win;
 				picture();
-				
+
 			}
 			else if (roulette[num] % 2 == 1 && roulette[num] != 0 && asw == 1)
 			{
@@ -155,7 +172,7 @@ bb:
 				music_stop();
 				gamestate = win;
 				picture();
-				
+
 			}
 			else
 			{
@@ -168,7 +185,7 @@ bb:
 				music_stop();
 				gamestate = lose;
 				picture();
-				
+
 			}
 		}
 		printf("\nDo you want to play again? yes(1) no(0) ");
@@ -194,7 +211,7 @@ bb:
 
 
 		printf("\n---black jack start ---");
-		
+
 		do
 		{
 			printf("\nhow much do you want to bet? ");
@@ -207,9 +224,6 @@ bb:
 		music();
 		Sleep(2000);
 		printf("dealer: [?], [%s of %s]\n", dealer[1].face, dealer[1].suit);
-
-
-
 		while (1) {
 			int choice = 0;
 			Sleep(2000);
@@ -230,7 +244,7 @@ bb:
 				goto aa;
 			}
 			music_stop();
-			
+
 			printf("need(1) or stop(0) ");
 			scanf(" %d", &choice);
 
@@ -244,7 +258,6 @@ bb:
 			}
 		}
 
-
 		printf("\n--- dealer round ---\n");
 		printHand(dealer, dealercard, "dealer");
 		Sleep(1000);
@@ -253,7 +266,6 @@ bb:
 			Sleep(1000);
 			printHand(dealer, dealercard, "dealer");
 		}
-
 
 		playerScore = calculate(player, playercard);
 		dealerScore = calculate(dealer, dealercard);
@@ -270,7 +282,7 @@ bb:
 			Sleep(2000);
 			music_stop();
 			picture();
-			
+
 		}
 		else if (playerScore > dealerScore) {
 			printf("player win :) you win %d\n", money);
@@ -283,7 +295,7 @@ bb:
 			Sleep(2000);
 			music_stop();
 			picture();
-			
+
 		}
 		else if (playerScore < dealerScore) {
 			printf("dealer win :( you lose %d\n", money);
@@ -296,7 +308,7 @@ bb:
 			Sleep(2000);
 			music_stop();
 			picture();
-			
+
 		}
 		else {
 			music_stop();
@@ -309,12 +321,78 @@ bb:
 		if (total_money == 0)
 			break;
 	}
+//Slot machine/////
+int _tmp = 1;
+	while (total_money >= 0 && again == 1 && item == 2)
+	{
+		int reels[3];
+#ifdef _WIN32
+		system("chcp 65001 > nul");
+#endif
+
+		srand((unsigned)time(NULL));
+		printf("\n\n=== Terminal Slot Machine ===\n");
+		show_help(&_tmp);
+		do
+		{
+			printf("\nhow much do you want to bet? ");
+			scanf(" %d", &money);
+			if (money <= 0 || money > total_money)
+			{
+				flush_input();
+				printf("you dont have that munch money\n");
+			}
+		} while (money <= 0 || money > total_money);
+
+		total_money -= money;
+		spin_Reels(reels);
+		printf("Enter any button to start the slot machine");
+		getch();
+		printf("\n\nSpinning...\n");
+		music_stop();
+		scenemusic = slot_machine;
+		music();
+		Sleep(4000);
+		music_stop();
+		print_reels(reels);
+		int payout = calculate_payout(reels, money);
+		total_money += payout;
+		if (payout > 0)
+		{
+			printf("Congratulations! You won: %d\n", payout);
+			scenemusic = win1;
+			music();
+			Sleep(2000);
+			music_stop();
+			gamestate = win;
+			picture();
+		}
+		else
+		{
+			printf("No win. You lost: %d\n", money);
+			scenemusic = lose1;
+			music();
+			Sleep(2000);
+			music_stop();
+			gamestate = lose;
+			picture();
+		}
+
+		total(total_money);
+		printf("\nDo you want to play again? yes(1) no(0) ");
+		scanf(" %d", &again);
+		scenemusic = casino;
+		music();
+		if (total_money == 0)
+			break;
+	}
+
 	if (total_money != 0 && again == 0)
 	{
 		printf("you still have %d to play\n", total_money);
-		printf("do you want play another item? black jack(1) roulette(0)");
+		printf("do you want play another item? Slot machine(2) black jack(1) roulette(0)");
 		scanf(" %d", &item);
-		if (item == 0 || item == 1)
+		if (item == 0 || item == 1 ||item==2)
 		{
 			again = 1;
 			goto bb;
@@ -328,6 +406,9 @@ bb:
 	system("pause");
 	return 0;
 }
+
+
+
 
 void fillDeck(card* wDeck, const char* wFace[], const char* wSuit[]) {
 	for (int i = 0; i < 52; i++) {
@@ -418,10 +499,88 @@ int roulate(int roulette[38])
 void picture(void) {
 #define WIN_W 800
 #define WIN_H 600
-	/*if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-	        SDL_Log("初始化失敗: %s", SDL_GetError());
-	        return 1;
-	    }*/
+	SDL_Window* window = SDL_CreateWindow(
+		"Result",
+		WIN_W,
+		WIN_H,
+		0
+	);
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
+
+	SDL_Surface* surface = NULL;
+	if (gamestate == win)
+		surface = SDL_LoadBMP("picture_happy.bmp");
+	else
+		surface = SDL_LoadBMP("picture_sad.bmp");
+
+	if (!surface) {
+		SDL_Log("圖片讀取失敗: %s", SDL_GetError());
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		return;
+	}
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_DestroySurface(surface);
+
+	float imgW, imgH;
+	SDL_GetTextureSize(texture, &imgW, &imgH);
+
+	SDL_FRect destRect;
+	destRect.w = 400.0f;
+	destRect.h = destRect.w * (imgH / imgW);
+	destRect.x = (WIN_W - destRect.w) / 2.0f;
+	destRect.y = (WIN_H - destRect.h) / 2.0f;
+
+	Uint64 startTime = SDL_GetTicks();
+	int running = 1;
+	SDL_Event event;
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	while (running) {
+		Uint64 elapsed = SDL_GetTicks() - startTime;
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_EVENT_QUIT)
+				running = 0;
+			if (event.type == SDL_EVENT_KEY_DOWN &&
+				(event.key.key == SDLK_RETURN ||
+					event.key.key == SDLK_ESCAPE)) {
+				running = 0;
+			}
+		}
+
+		if (elapsed >= 2000)
+			running = 0;
+
+		SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+		SDL_RenderClear(renderer);
+
+		SDL_RenderTexture(renderer, texture, NULL, &destRect);
+
+		Uint8 fadeAlpha = 0;
+		if (elapsed > 1500) {
+			float fadeRatio = (float)(elapsed - 1500) / 500.0f;
+			if (fadeRatio > 1.0f) fadeRatio = 1.0f;
+			fadeAlpha = (Uint8)(fadeRatio * 255);
+		}
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, fadeAlpha);
+		SDL_FRect fadeRect = { 0, 0, WIN_W, WIN_H };
+		SDL_RenderFillRect(renderer, &fadeRect);
+
+		SDL_RenderPresent(renderer);
+	}
+
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	gamestate = finish;
+}
+
+/*void picture(void) {		圖片不會自動關掉版本
+	#define WIN_W 800
+	#define WIN_H 600
+
 
 	SDL_Window* window = SDL_CreateWindow("SDL3 Image Center Example", WIN_W, WIN_H, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
@@ -463,9 +622,9 @@ void picture(void) {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-	//SDL_Quit();
 	gamestate = finish;
-}
+}*/
+
 void music(void) {
 	if (!is_engine_init) return;
 
@@ -481,7 +640,8 @@ void music(void) {
 	if (scenemusic == casino) filePath = "casino.mp3";
 	else if (scenemusic == shuffle) filePath = "shuffle.mp3";
 	else if (scenemusic == dealing_card) filePath = "dealing_card.mp3";
-	else if (scenemusic == roulette1) filePath = "roulette.mp3";
+	else if (scenemusic == roulette1) filePath = "roulette1.mp3";
+	else if (scenemusic == slot_machine) filePath = "slot_machine.mp3";
 	else if (scenemusic == win1) filePath = "money.mp3";
 	else if (scenemusic == lose1) filePath = "sad.mp3";
 
@@ -497,5 +657,112 @@ void music(void) {
 
 void music_stop(void) {
 	scenemusic = none;
-	music(); 
+	music();
+}
+
+int rand_index(int max)
+{
+	return rand() % max;
+}
+
+void spin_Reels(int reel[3])
+{
+	int i;
+	for (i = 0; i < 3; i++)
+	{
+		reel[i] = rand() % SYMBOL_COUNT;
+	}
+}
+
+int calculate_payout(const int reel[], int bet)
+{
+	int pattern1 = reel[0], pattern2 = reel[1], pattern3 = reel[2];
+	int payout = 0;
+	int triple = ((pattern1 == pattern2) && (pattern2 == pattern3));
+	int pair = ((pattern1 == pattern2) || (pattern2 == pattern3) || (pattern3 == pattern1));
+	int i, emp = 0;
+
+	for (i = 0; i < 3; i++)
+	{
+		if (strcmp(SYMBOLS[reel[i]], "BOMB") == 0)
+		{
+			printf("Boom! You hit a bomb!\n");
+			return payout;
+		}
+	}
+	for (i = 0; i < 3; i++)
+	{
+		if (strcmp(SYMBOLS[reel[i]], "EMPTY") == 0)
+		{
+			emp = 1;
+		}
+	}
+
+	if (triple && (emp == 0))
+	{
+		if (strcmp(SYMBOLS[pattern1], "7") == 0)
+		{
+			payout = bet * 10;
+		}
+		else
+		{
+			payout = bet * 5;
+		}
+	}
+	else if (
+		pair && (
+			((strcmp(SYMBOLS[pattern1], SYMBOLS[pattern2]) == 0) && (strcmp(SYMBOLS[pattern1], "EMPTY") != 0)) ||
+			((strcmp(SYMBOLS[pattern3], SYMBOLS[pattern2]) == 0) && (strcmp(SYMBOLS[pattern3], "EMPTY") != 0)) ||
+			((strcmp(SYMBOLS[pattern1], SYMBOLS[pattern3]) == 0) && (strcmp(SYMBOLS[pattern1], "EMPTY") != 0))
+		)
+	)
+	{
+		payout = bet * 3;
+	}
+	if (strcmp(SYMBOLS[pattern1], "STAR") == 0 || strcmp(SYMBOLS[pattern2], "STAR") == 0 || strcmp(SYMBOLS[pattern3], "STAR") == 0)
+	{
+		payout += bet;
+	}
+	return payout;
+}
+
+//void delay_print(const char* symbol)
+//{
+//	printf("%s", symbol);
+//#ifdef _WIN32
+//	Sleep(500); // 延遲 500 毫秒
+//#else
+//	usleep(500000); // 延遲 0.5 秒
+//#endif
+//}
+
+void print_reels(const int reels[])
+{
+#ifdef _WIN32
+	printf("[ %s | %s | %s ]\n", SYMBOLS[reels[0]], SYMBOLS[reels[1]], SYMBOLS[reels[2]]);
+#else
+	printf("┌───────────────┐\n");
+	printf("│  %s  |  %s  |  %s  │\n", SYMBOLS[reels[0]], SYMBOLS[reels[1]], SYMBOLS[reels[2]]);
+	printf("└───────────────┘\n");
+#endif
+}
+
+void flush_input()
+{
+	int ch;
+	while ((ch = getchar()) != '\n' && ch != EOF) {}
+}
+
+void show_help(int *_temp)
+{
+	if (*_temp==1)
+	{
+		printf("\nGame Rules:\n");
+		printf(" - Three of the same symbol: *5 (if '7' then *10)\n");
+		printf(" - Two of the same symbol:   *3\n");
+		printf(" - Any 'STAR' symbol: bonus + bet\n");
+		printf(" - Any 'BOMB' symbol: no bet!\n");
+		printf(" - Any 'EMPTY' symbol: Unable to pair occupied positions\n\n");
+		*_temp = 0;
+	}
 }

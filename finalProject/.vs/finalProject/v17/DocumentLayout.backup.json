@@ -1,14 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\final-\\finalProject\\",
+  "WorkspaceRootPath": "C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\finalProject\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|solutionrelative:finalProject\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\miniaudio.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|solutionrelative:finalProject\\miniaudio.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,27 +17,18 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "miniaudio.h",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\miniaudio.h",
-              "RelativeDocumentMoniker": "finalProject\\miniaudio.h",
-              "ToolTip": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\miniaudio.h",
-              "RelativeToolTip": "finalProject\\miniaudio.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAd7AQACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-29T14:43:45.299Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.c",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
               "RelativeDocumentMoniker": "finalProject\\Main.c",
-              "ToolTip": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
               "RelativeToolTip": "finalProject\\Main.c",
-              "ViewState": "AgIAAMwBAAAAAAAAAAAAANUBAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAALwCAAAAAAAAAAAawM4CAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-12-25T11:11:16.721Z",
               "EditorCaption": ""
