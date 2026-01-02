@@ -18,9 +18,15 @@
     <ClCompile Include="Main.c">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="card.c">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="miniaudio.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="card.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
