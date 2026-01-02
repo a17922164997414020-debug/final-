@@ -208,7 +208,8 @@ bb:
 
 			if (choice == 1) {
 				player[playercard++] = deck[a++];
-				scenemusic = dealing_card; music();
+				scenemusic = dealing_card; 
+				music();
 			}
 			else break;
 		}
@@ -259,7 +260,7 @@ bb:
 		scanf(" %d", &again);
 		if (total_money == 0) 
 			break;
-		scenemusic = casino;
+		scenemusic = shuffle;
 		music();
 	}
 
