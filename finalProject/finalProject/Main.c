@@ -497,8 +497,13 @@ int roulate(int roulette[38])
 }
 
 void picture(void) {
+<<<<<<< HEAD
 #define WIN_W 800
 #define WIN_H 600
+=======
+	#define WIN_W 800
+	#define WIN_H 600
+>>>>>>> jack
 	SDL_Window* window = SDL_CreateWindow(
 		"Result",
 		WIN_W,
@@ -523,7 +528,11 @@ void picture(void) {
 
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_DestroySurface(surface);
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> jack
 	float imgW, imgH;
 	SDL_GetTextureSize(texture, &imgW, &imgH);
 
@@ -541,6 +550,7 @@ void picture(void) {
 		Uint64 elapsed = SDL_GetTicks() - startTime;
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_EVENT_QUIT)
+<<<<<<< HEAD
 				running = 0;
 			if (event.type == SDL_EVENT_KEY_DOWN &&
 				(event.key.key == SDLK_RETURN ||
@@ -574,13 +584,52 @@ void picture(void) {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+=======
+					running = 0;
+			if (event.type == SDL_EVENT_KEY_DOWN &&
+					(event.key.key == SDLK_RETURN ||
+						event.key.key == SDLK_ESCAPE)) {
+					running = 0;
+				}
+			}
+
+			if (elapsed >= 2000)
+				running = 0;
+
+			SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+			SDL_RenderClear(renderer);
+
+			SDL_RenderTexture(renderer, texture, NULL, &destRect);
+
+			Uint8 fadeAlpha = 0;
+			if (elapsed > 1500) {
+				float fadeRatio = (float)(elapsed - 1500) / 500.0f;
+				if (fadeRatio > 1.0f) fadeRatio = 1.0f;
+				fadeAlpha = (Uint8)(fadeRatio * 255);
+			}
+
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, fadeAlpha);
+			SDL_FRect fadeRect = { 0, 0, WIN_W, WIN_H };
+			SDL_RenderFillRect(renderer, &fadeRect);
+
+			SDL_RenderPresent(renderer);
+		}
+
+		SDL_DestroyTexture(texture);
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+>>>>>>> jack
 	gamestate = finish;
 }
 
 /*void picture(void) {		圖片不會自動關掉版本
 	#define WIN_W 800
 	#define WIN_H 600
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> jack
 
 	SDL_Window* window = SDL_CreateWindow("SDL3 Image Center Example", WIN_W, WIN_H, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
