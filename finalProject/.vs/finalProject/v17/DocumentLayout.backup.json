@@ -1,10 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\",
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\final-\\finalProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\finalProject\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|solutionrelative:finalProject\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\card.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|solutionrelative:finalProject\\card.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\card.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|solutionrelative:finalProject\\card.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\PROGRAM FILES (X86)\\WINDOWS KITS\\10\\INCLUDE\\10.0.26100.0\\UCRT\\CORECRT_WSTDIO.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\miniaudio.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AD7F4B26-DCAD-4E82-A51D-401B689F84AF}|finalProject\\finalProject.vcxproj|solutionrelative:finalProject\\miniaudio.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,21 +29,69 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "card.h",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\card.h",
+              "RelativeDocumentMoniker": "finalProject\\card.h",
+              "ToolTip": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\card.h",
+              "RelativeToolTip": "finalProject\\card.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-02T09:14:29.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "card.c",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\card.c",
+              "RelativeDocumentMoniker": "finalProject\\card.c",
+              "ToolTip": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\card.c",
+              "RelativeToolTip": "finalProject\\card.c",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-01-02T09:14:25.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "corecrt_wstdio.h",
+              "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\\corecrt_wstdio.h",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\\corecrt_wstdio.h",
+              "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\\corecrt_wstdio.h",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\\corecrt_wstdio.h",
+              "ViewState": "AgIAAO8BAAAAAAAAAAAhwPkBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-02T09:08:29.614Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "miniaudio.h",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\miniaudio.h",
+              "RelativeDocumentMoniker": "finalProject\\miniaudio.h",
+              "ToolTip": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\miniaudio.h",
+              "RelativeToolTip": "finalProject\\miniaudio.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-02T09:01:09.877Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.c",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
               "RelativeDocumentMoniker": "finalProject\\Main.c",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\final-\\finalProject\\finalProject\\Main.c",
-              "RelativeToolTip": "finalProject\\Main.c",
-              "ViewState": "AgIAALwCAAAAAAAAAAAawM4CAAACAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\user\\Desktop\\final-\\finalProject\\finalProject\\Main.c*",
+              "RelativeToolTip": "finalProject\\Main.c*",
+              "ViewState": "AgIAAEQBAAAAAAAAAAAAwAIBAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-12-25T11:11:16.721Z",
               "EditorCaption": ""
